@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../actions/actions';
+import getRegistrationsAction from '../actions/getRegistrations';
+import postRegistrationAction from '../actions/postRegistration';
 import RegistrationForm from '../components/registrationFormComponent';
-import registrationReducer from '../reducers/registrationReducer';
 
 class App extends Component {
+
+  componentWillMount() {
+    this.props.getRegistrationsAction();
+  }
 
   render() {
     return (
       <div className="container">
         <p><i>devstats</i></p>
-        <RegistrationForm onSubmit={registrationReducer}/>
+        <RegistrationForm onSubmit={this.props.postRegistrationAction}/>
+        <div>
+          <p>This is the current data => </p>
+          {
+            this.props.registration.devregistrations.map((reg, idx) => {
+              return(<div key={idx}>{reg.name + ' <= '} {JSON.stringify(reg)}</div>);
+            })
+           }
+      </div>
       </div>
     );
   }
@@ -25,13 +36,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
+const actions = {
+  getRegistrationsAction,
+  postRegistrationAction
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(App);
