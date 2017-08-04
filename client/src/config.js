@@ -1,1 +1,1 @@
-export const API_URL_DEVREGISTRATIONS = 'http://localhost:5000/devregistrations';
+export const API_URL_DEVREGISTRATIONS = '/api/devregistrations';

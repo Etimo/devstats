@@ -19,7 +19,7 @@ class RegistrationForm extends Component {
         this.props.initialize(initData);
     }
 
-    handleFormSubmit(formProps, e) {
+    handleFormSubmit(formProps) {
         this.props.onSubmit(formProps);
     }
 
